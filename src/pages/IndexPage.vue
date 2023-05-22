@@ -1,62 +1,75 @@
 <template>
   <q-page>
     <div class="row col-12 col-md-12 q-pa-md">
-
       <div class=" col-12 col-md-8 q-pa-md">
-
-        <q-stepper class="" v-model="step" ref="stepper" alternative-labels color="primary" animated>
-          <q-step :name="1" title="Forma de pagamento" icon="settings" :done="step > 1">
-            <cardsComponents />
-
-          </q-step>
-
-          <q-step :name="2" title="Dados de pagamento" icon="create_new_folder" :done="step > 2">
-            <cartaoTeste />
-          </q-step>
-
-          <q-step :name="3" title="Revisão" icon="add_comment">
-
-          </q-step>
-
-          <template v-slot:navigation>
+        <q-stepper v-model="step" header-nav ref="stepper" color="primary" animated>
+          <q-step :name="1" title="Formas de pagamento" icon="fa-regular fa-circle" :done="done1">
+            <formaPagaComponents />
             <q-stepper-navigation>
-              <q-btn @click="$refs.stepper.next()" color="primary" :label="step === 3 ? 'Finish' : 'Continue'" />
-              <q-btn v-if="step > 1" flat color="primary" @click="$refs.stepper.previous()" label="Back"
-                class="q-ml-sm" />
+              <q-btn @click="() => { done1 = true; step = 2 }" :disabled="!useCheckout.vezes" color="primary"
+                label="Continuar" />
             </q-stepper-navigation>
-          </template>
+          </q-step>
+          <q-step :name="2" title="Dados do pagamento" caption="Optional" icon="fa-regular fa-circle" :done="done2">
+            <cartaoComponents />
+            <q-stepper-navigation>
+              <q-btn flat @click="step = 1" color="primary" label="Voltar" class="q-ml-sm" />
+              <q-btn @click="() => { done2 = true; step = 3 }" color="primary" :disabled="!useCheckout.formCard.numberCard
+                || !useCheckout.formCard.nameCard
+                || !useCheckout.formCard.cpf
+                || !useCheckout.formCard.validadeCard
+                || !useCheckout.formCard.cvvCard" label="Continuar" />
+            </q-stepper-navigation>
+          </q-step>
+          <q-step :name="3" title="Revisão" icon="fa-regular fa-circle" :done="done3">
+            <revisaoComponents />
+            <q-stepper-navigation>
+              <q-btn flat @click="step = 2" color="primary" label="Voltar" class="q-ml-sm" />
+              <q-btn color="primary" @click="done3 = true; step = 4" label="Continuar" />
+            </q-stepper-navigation>
+          </q-step>
+          <q-step :name="4" icon="fa-regular fa-circle" :done="done4">
+            <cuncluidoComponents />
+            <q-stepper-navigation>
+              <q-btn color="primary" label="Finalizar" @click="reloadPage" />
+            </q-stepper-navigation>
+          </q-step>
         </q-stepper>
-
       </div>
-
-      <div class="row col-12 col-md-4 q-pa-md">
-        <detailsConponents />
+      <div class=" col-12 col-md-4 q-pa-md">
+        <detalhesConponents />
       </div>
     </div>
-
   </q-page>
 </template>
 
 <script>
 import { ref } from 'vue'
-import detailsConponents from '../components/detailsConponents.vue'
-import cardsComponents from 'src/components/cardsComponents.vue'
-import { useVezesStore } from 'src/stores/example-store';
+import { useCheckoutStore } from 'src/stores/checkout.store';
+import formaPagaComponents from 'src/components/formaPagaComponents.vue'
+import detalhesConponents from '../components/detalhesConponents.vue'
 import cartaoComponents from '../components/cartaoComponents.vue'
-import cartaoTeste from '../components/cartaoTeste.vue';
+import revisaoComponents from 'src/components/revisaoComponents.vue';
+import cuncluidoComponents from '../components/cuncluidoComponents.vue'
+
 export default {
   name: 'IndexPage',
   components: {
-    detailsConponents,
-    cardsComponents,
-    cartaoTeste,
-    // cartaoComponents,
+    detalhesConponents,
+    formaPagaComponents,
+    cartaoComponents,
+    revisaoComponents,
+    cuncluidoComponents,
   },
-
+  methods: {
+    reloadPage() {
+      location.reload();
+    }
+  },
   setup() {
-    const Vezes = useVezesStore()
+    const useCheckout = useCheckoutStore()
     return {
-      step: ref(1), Vezes
+      step: ref(1), useCheckout
     }
   }
 }

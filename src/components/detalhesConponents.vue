@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-12-md ">
+
     <q-card class="q-pa-lg">
       <div class="flex justify-between">
         Pedido (Gustavo Oliveira de Moura) detalhes
@@ -9,7 +9,7 @@
 
       <div class="row justify-between q-my-md">
         <div  class="row ">
-          <div class="bg-grey-5 q-mx-sm q-px-sm"> {{ Vezes.vezes }}</div>
+          <div class="bg-green q-mx-sm q-px-sm"> {{ useCheckout.vezes }}</div>
         </div>
 
         <div>
@@ -54,16 +54,16 @@
       </div>
 
     </q-card>
-  </div>
+
 </template>
 
 <script>
-import { useVezesStore } from 'src/stores/example-store';
+import { useCheckoutStore } from 'src/stores/checkout.store';
 export default {
   setup() {
-  const Vezes = useVezesStore()
+  const useCheckout = useCheckoutStore()
   return{
-    Vezes,
+    useCheckout,
   }
 }
 }

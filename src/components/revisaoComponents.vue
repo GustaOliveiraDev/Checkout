@@ -1,6 +1,6 @@
 <template>
-    <div class="checkout">
-        <div class="credit-card-box" :class="{ 'hover ': varAuxiliar }">
+    <div class="checkoutv">
+        <div class="credit-card-box">
             <div class="flip">
                 <div class="front">
                     <div class="chip"></div>
@@ -65,41 +65,6 @@
                         <div>{{ useCheckout.formCard.cvvCard }}</div>
                     </div>
                 </div>
-
-            </div>
-        </div>
-        <div class="q-gutter-y-md">
-            <div class="row col-12 col-md-2">
-                <q-input class="row col-12 col-md-8" rounded outlined v-model="useCheckout.formCard.numberCard"
-                    label="Numero do Cartão*" mask="#### #### #### ####"
-                    :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" maxlength="20" />
-                <q-select rounded outlined class="col-12 col-md-4" v-model="useCheckout.formCard.bandeira" maxlength="20"
-                    :options="bandeiras" label="Bandeira*"
-                    :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" />
-            </div>
-            <div class="row col-12 col-md-12 ">
-                <q-input class="col-12 col-md-12" rounded outlined v-model="useCheckout.formCard.nameCard"
-                    label="Titular do Cartão*" :rules="[val => (val && val.length > 0) || 'Campo obrigatório']"
-                    maxlength="20" />
-            </div>
-            <div class="row col-12 col-md-12 ">
-                <div class="row col-12 col-md-4">
-                    <q-input rounded outlined v-model="useCheckout.formCard.cpf" maxlength="20" label="CPF*"
-                        mask="###.###.###-##" :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" />
-                </div>
-                <div class="row col-12 col-md-4">
-                    <q-input rounded outlined v-model="useCheckout.formCard.validadeCard" maxlength="5" mask="##/##"
-                        label="Validade*" :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" />
-                </div>
-                <div class="row col-12 col-md-4" @click="reveter()">
-                    <q-input rounded outlined v-model="useCheckout.formCard.cvvCard" maxlength="20" label="CCV*" mask="###"
-                        :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" />
-                </div>
-            </div>
-            <div class="row col-12 col-md-12 ">
-
-                <q-select rounded outlined class="col-12 col-md-12" v-model="useCheckout.vezes" maxlength="20"
-                    label="Parcelas" :rules="[val => (val && val.length > 0) || 'Campo obrigatório']" />
             </div>
         </div>
     </div>
@@ -107,42 +72,26 @@
   
 <script>
 import { useCheckoutStore } from 'src/stores/checkout.store';
-import { ref } from 'vue';
-
 export default {
     setup() {
         const useCheckout = useCheckoutStore()
         return {
-            useCheckout,
-            bandeiras: ['Visa'],
+            useCheckout
         }
-    },
-    data() {
-        return {
-            varAuxiliar: ref(false),
-        }
-    },
-    methods: {
-        reveter() {
-            this.varAuxiliar = !this.varAuxiliar
-
-        },
     }
 }
 </script>
-
-
+  
 <style lang="scss">
-.checkout {
+.checkoutv {
     margin: 150px auto 30px;
     position: relative;
-    width: 720px;
-    background: white;
+    width: 460px;
+
     border-radius: 15px;
     padding: 160px 45px 30px;
-    box-shadow: 0 10px 40px hsla(0, 0, 0, .1);
-}
 
+}
 
 .credit-card-box {
     perspective: 1000;
@@ -152,8 +101,6 @@ export default {
     top: -112px;
     left: 50%;
     transform: translateX(-50%);
-
-
 
     &:hover .flip,
     &.hover .flip {
@@ -168,7 +115,7 @@ export default {
         backface-visibility: hidden;
         background: linear-gradient(135deg, #1976D2, purple);
         position: absolute;
-        color: white;
+        color: black;
         top: 0;
         left: 0;
         text-shadow: 0 1px 1px hsla(0, 0, 0, 0.3);
@@ -299,7 +246,7 @@ export default {
         right: 0;
         position: absolute;
         margin: 0 auto;
-        color: white;
+        color: #000;
         text-align: right;
         padding: 10px;
 
@@ -308,6 +255,7 @@ export default {
             color: #fff;
         }
     }
+
 
 }
 </style>
