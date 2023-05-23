@@ -1,12 +1,12 @@
 <template>
   <div class="col-12 col-md-12 q-pa-md q-gutter-y-md">
     <div class="row col-12 col-md-12 q-pa-md  justify-center border">
-      <img src="../../public/imgs/masterCadendVisa.png" alt="bandeiras Cartão">
+      <img class="pagamentoImg" src="../../public/imgs/masterCadendVisa.png" height="100" width="300" alt="bandeiras Cartão">
       <q-radio class="row col-12 col-md-12 q-pa-md justify-center" v-model="useCheckout.vezes" val="Cartão de credito 1X"
         label="Cartão de credito" />
     </div>
     <div class="row col-12 col-md-12 q-pa-md justify-center border">
-      <img src="../../public/imgs/masterCadendVisa.png" alt="bandeiras Cartão">
+      <img class="pagamentoImg" src="../../public/imgs/masterCadendVisa.png" height="100" width="300" alt="bandeiras Cartão">
       <q-radio class="row col-12 col-md-12 q-pa-md justify-center" v-model="useCheckout.vezes" val="Cartão de debito 1X"
         label="Cartão de debito" />
     </div>
@@ -30,4 +30,5 @@ export default {
   border: 1px solid black;
   border-radius: 20px;
 }
+
 </style>
